@@ -6,6 +6,7 @@
 
 {% block head %}
   <link href="{% static 'css/articles.css' %}" rel="stylesheet">
+  <script src="{% static 'js/articles.js' %}"></script>
 {% endblock head %}
 
 {% block main %}
@@ -21,17 +22,23 @@
       <section class="articles">
         {% for article in articles %}
           {% include 'articles/partial_article.html' with article=article %}
-        {% empty %}
+         {% empty %}
           <h4 class="no-data">{% trans 'There is no published article yet' %}. <a href="{% url 'write' %}">{% trans 'Be the first one to publish' %}!</a></h4>
         {% endfor %}
       </section>
     </div>
+
     <div class="col-md-2 popular-tags">
+      {%if popular_tags%}
       <h4>{% trans 'Popular Tags' %}</h4>
       {% for tag, count in popular_tags %}
         <a href="{% url 'tag' tag %}"><span class="label label-default">{{ count }} {{ tag }}</span></a>
       {% endfor %}
+      {%endif%}
     </div>
+
+
+
   </div>
   <div class="row">
     <div class="col-md-12">

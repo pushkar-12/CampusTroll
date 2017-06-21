@@ -1,4 +1,5 @@
-<article>
+
+<article article-id="{{article.pk}}" csrf="{{ csrf_token }}">
   <h2><a href="{% url 'article' article.slug %}">{{ article.title }}</a></h2>
   <div style="color:black" class="info">
     <span class="date">
@@ -13,15 +14,19 @@
       <span class="glyphicon glyphicon-comment"></span>
       {{ article.get_comments.count }} Comments
     </span>
-  </div>
+    {%if article.create_user == user%}
+    <button style="color:white" class="btn btn-danger btn-xs">Delete Article</button>{%endif%}
+  </div><br>
   <div class="content">
     <strong>{{ article.get_content_as_markdown|safe }}</strong>
   </div>
-  {% if article.get_tags %}
+
+   {% if article.get_tags %}
     <div class="tags">
       {% for tag in article.get_tags %}
         <a href="{% url 'tag' tag.tag %}"><span class="label label-default">{{ tag }}</span></a>
       {% endfor %}
     </div>
   {% endif %}
+
 </article>

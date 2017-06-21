@@ -7,6 +7,7 @@ urlpatterns = [
     url(r'^new/$', views.new, name='new_message'),
     url(r'^send/$', views.send, name='send_message'),
     url(r'^delete/$', views.delete, name='delete_message'),
+    url(r'^delete_thread/$', views.delete_thread, name='delete_thread'),
     url(r'^users/$', views.users, name='users_message'),
     url(r'^check/$', views.check, name='check_message'),
     url(r'^(?P<username>[^/]+)/$', views.messages, name='messages'),

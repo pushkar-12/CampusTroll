@@ -53,4 +53,28 @@ $(function () {
     }
   });
 
+  $("button").on("click", function () {
+
+    var article = $(this).closest("article");
+    var Id = $(article).attr("article-id");
+    var csrf = $(article).attr("csrf");
+
+
+    $.ajax({
+      url: '/articles/delete/',
+      data: {
+        'Id': Id,
+        'csrfmiddlewaretoken': csrf
+      },
+      type: 'post',
+      cache: false,
+      success: function (data) {
+        $(article).fadeOut(500, function () {
+          $(article).remove();
+        });
+      }
+    });
+  });
+
+
 });

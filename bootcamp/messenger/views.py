@@ -1,4 +1,4 @@
-import json
+import json,re
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -84,7 +84,44 @@ def new(request):
 @login_required
 @ajax_required
 def delete(request):
+    try:
+        id = request.POST.get('Id')
+        option=request.POST.get('option')
+
+        mess =Message.objects.get(pk=id)
+        mess.delete()
+
+        if option == "2":
+            mess=Message.objects.get(pk=str(int(id)+1))
+            mess.delete()
+
+        return HttpResponse()
+
+    except Exception:
+        return HttpResponseBadRequest()
+
+def delete_thread(request):
+    #try:
+    messages = request.POST.get('messages')
+
+    print(messages+"\n")
+    messages=re.sub(r'\'.*?\'', '',messages, count=0, flags=0)
+    print(messages+"\n")
+    list=re.findall(r'\, \([0-9]*\,|\[\([0-9]*\,',messages,flags=0)
+
+    QuerySet=Message.objects.all()
+
+    for item in list:
+        item=re.sub(r'[^0-9]*','',item)
+        if QuerySet.filter(pk=item).exists():
+            temp=Message.objects.get(pk=item)
+            temp.delete()
     return HttpResponse()
+
+    #except Exception:
+     #   return HttpResponse("hello")
+      #  return HttpResponseBadRequest()
+
 
 
 @login_required
@@ -99,8 +136,7 @@ def send(request):
             return HttpResponse()
         if from_user != to_user:
             msg = Message.send_message(from_user, to_user, message)
-            return render(request, 'messenger/includes/partial_message.html',
-                          {'message': msg})
+            return render(request, 'messenger/includes/partial_message.html',{'message': msg})
 
         return HttpResponse()
     else:
@@ -128,3 +164,4 @@ def users(request):
 def check(request):
     count = Message.objects.filter(user=request.user, is_read=False).count()
     return HttpResponse(count)
+

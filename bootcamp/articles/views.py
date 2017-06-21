@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-from django.http import HttpResponse, HttpResponseBadRequest
+from django.http import HttpResponse, HttpResponseBadRequest,HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
 
@@ -141,6 +141,17 @@ def comment(request):
 
         else:
             return HttpResponseBadRequest()
+
+    except Exception:
+        return HttpResponseBadRequest()
+
+def delete(request):
+    try:
+        article_id = request.POST.get('Id')
+
+        article = Article.objects.get(pk=article_id)
+        article.delete()
+        return HttpResponse()
 
     except Exception:
         return HttpResponseBadRequest()

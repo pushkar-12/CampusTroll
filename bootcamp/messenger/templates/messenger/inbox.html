@@ -3,11 +3,13 @@
 
 {% block title %}{% trans 'Inbox' %}{% endblock %}
 
+
 {% block page_header %}{% trans 'Inbox' %}{% endblock %}
 
 {% block container %}
+<div id="scroll" style="cursor:pointer;display:none"><span class="pull-right glyphicon glyphicon-chevron-up" style="cursor:pointer;font-size:40px;z-index:-1;"></span><br><br></div>
   {% if messages %}
-  <ul class="conversation">
+  <ul class="conversation" messages="{{messages.values_list}}" csrf="{{csrf_token}}">
     {% for message in messages %}
       {% include 'messenger/includes/partial_message.html' with message=message %}
     {% endfor %}
@@ -17,12 +19,16 @@
         <form role="form" method="post" action="{% url 'send_message' %}" id="send">
           {% csrf_token %}
           <input type="hidden" name="to" value="{{ active }}">
-          <input class="form-control" type="text" name="message" placeholder="Write a message..." maxlength="1000" autocomplete="off">
+          <input class="form-control" type="text" name="message" placeholder="Write a message..." maxlength="1000" autofocus autocomplete="off">
         </form>
       </div>
     </li>
+    <li><button class="btn btn-lg btn-danger delete_thread">Clear old messages</button></li>
+
   </ul>
+
   {% else %}
     <h4>Your inbox is empty!</h4>
   {% endif %}
+
 {% endblock container %}

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}CampusTroll{% endblock %}</title>
-    <link rel="icon" type="image/png" href="{% static 'img/myicon.jpeg' %}">
+    <!--<link rel="icon" type="image/png" href="{% static 'img/myicon.jpeg' %}">-->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
     <link href="{% static 'css/bootcamp.css' %}?v=1" rel="stylesheet">
     <!--[if lt IE 9]>
@@ -18,7 +18,7 @@
     {% block head %}{% endblock %}
     {% block style%}
     <style>
-      body{background:url('http://cdn.wallpapersafari.com/24/44/lBxDPO.jpg');}
+      body{background-color: #006389;}
     </style>
 
     {%endblock%}
@@ -87,5 +87,7 @@
       <script src="{% static 'js/check_messages.js' %}"></script>
     {% endblock body %}
     <script src="{% static 'js/ga.js' %}"></script>
+
+
   </body>
 </html>

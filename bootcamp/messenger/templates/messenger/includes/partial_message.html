@@ -1,4 +1,5 @@
-<li>
+
+<li pkid="{{ message.pk }}" csrf="{{ csrf_token }}" class="hover" style="cursor:pointer">
   <img src="{{ message.from_user.profile.get_picture }}" class="picture">
   <div>
     <h5>
@@ -8,7 +9,17 @@
       <a href="{% url 'profile' message.from_user.username %}">
         {{ message.from_user.profile.get_screen_name }}
       </a>
-    </h5>
-    {{ message.message }}
+    </h5><strong style="color:white">
+    {{ message.message }}</strong>
+
+    <div class="qwe dropdown pull-right" style="display:none">
+    <button  class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+      <li style="cursor:pointer"><a class="delete">Delete your copy</a></li>
+      <li style="cursor:pointer"><a class="deleteboth">Delete both copies</a></li>
+    </ul>
+    </div>
   </div>
 </li>

@@ -72,3 +72,19 @@
 .tt-suggestion p {
   margin: 0;
 }
+.glyphicon-ring {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 4px solid white;
+  color: white;
+  display: inline-table;
+  text-align: center;
+}
+/**CSS FOR ICON WITH NO BACKGROUND COLOR**/
+
+.glyphicon-ring .glyphicon-bordered {
+  font-size: 20px;
+  vertical-align: middle;
+  display: table-cell;
+}
